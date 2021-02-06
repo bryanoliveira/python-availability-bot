@@ -60,27 +60,27 @@ options = webdriver.ChromeOptions()
 options.add_argument("--disable-blink-features=AutomationControlled")
 driver = webdriver.Chrome("./chromedriver-86-linux", options=options)
 pages = {
-    # "3070 na terabyte": {
-    #     "url": "https://www.terabyteshop.com.br/busca?str=rtx+3070",
-    #     "method": driver.find_element_by_class_name,
-    #     "arg": "bt-cmp",
-    # },
-    "3080 na terabyte": {
+    "3070 at terabyte": {
+        "url": "https://www.terabyteshop.com.br/busca?str=rtx+3070",
+        "method": driver.find_element_by_class_name,
+        "arg": "bt-cmp",
+    },
+    "3080 at terabyte": {
         "url": "https://www.terabyteshop.com.br/busca?str=rtx+3080",
         "method": driver.find_element_by_class_name,
         "arg": "bt-cmp",
     },
-    "3070 na kabum": {
+    "3070 at kabum": {
         "url": "https://www.kabum.com.br/cgi-local/site/listagem/listagem.cgi?string=rtx3070&btnG=",
         "method": driver.find_element_by_xpath,
         "arg": "//img[contains(@src,'https://static.kabum.com.br/conteudo/temas/001/imagens/icones/comprar.png')]",
     },
-    "3080 na kabum": {
+    "3080 at kabum": {
         "url": "https://www.kabum.com.br/cgi-local/site/listagem/listagem.cgi?string=rtx+3080&btnG=",
         "method": driver.find_element_by_xpath,
         "arg": "//img[contains(@src,'https://static.kabum.com.br/conteudo/temas/001/imagens/icones/comprar.png')]",
     },
-    "3070 e 3080 na pichau": {
+    "3070 & 3080 at pichau": {
         "url": "https://www.pichau.com.br/hardware/placa-de-video?amp%3Bproduct_list_limit=48&amp%3Bproduct_list_order=name&rgpu=6304%2C6305",
         "method": driver.find_element_by_class_name,
         "arg": "tocart",
@@ -90,9 +90,9 @@ keys = list(pages.keys())
 page = randint(0, len(pages) - 1)
 userAgent = UserAgent()
 last_pulse = None
-send_message("Iniciando...", alert=False)
-# play a sound to enable source selection
-# playsound("3.mp3")
+send_message("Starting...", alert=False)
+# play a sound to enable OS audio source selection
+playsound("3.mp3")
 while True:
     print()
     print(time.ctime())
@@ -101,16 +101,16 @@ while True:
     driver.execute_cdp_cmd(
         "Network.setUserAgentOverride", {"userAgent": userAgent.random},
     )
-    # driver.get("https://www.httpbin.org/headers")
+    # driver.get("https://www.httpbin.org/headers")  # test header update
     try:
         with timeout(60):
-            send_message("Olhando se tem {}".format(keys[page]), alert=False)
+            send_message("Checking {}".format(keys[page]), alert=False)
             # access page
             driver.get(pages[keys[page]]["url"])
             # test
             pages[keys[page]]["method"](pages[keys[page]]["arg"])
             # if there was no exception, the button was found!
-            send_message("Tem {}!".format(keys[page]))
+            send_message("{} found!!!".format(keys[page]))
             with mss() as sct:
                 sct.shot(
                     mon=-1, output="prints/{} - {}.png".format(time.ctime(), keys[page])
@@ -120,7 +120,7 @@ while True:
             playsound("3.mp3")
     except NoSuchElementException:
         s = randfloat(10, 35)
-        print("Nao achei! Dormindo {} segundos...".format(s))
+        print("Dit not found! Sleeping {} seconds...".format(s))
         time.sleep(s)
     except Exception as e:
         print("Unknown exception:", e)
