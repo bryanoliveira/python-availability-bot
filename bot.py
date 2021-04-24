@@ -15,6 +15,11 @@ from fake_useragent import UserAgent
 SLACK_ALERT_WEBHOOK = os.environ.get("SLACK_ALERT_WEBHOOK")
 SLACK_PULSE_WEBHOOK = os.environ.get("SLACK_PULSE_WEBHOOK")
 
+if len(SLACK_ALERT_WEBHOOK) == 0:
+    print("SLACK ALERT HOOK NOT CONFIGURED!")
+if len(SLACK_PULSE_WEBHOOK) == 0:
+    print("SLACK PULSE HOOK NOT CONFIGURED!")
+
 @contextmanager
 def timeout(time):
     # Register a function to raise a TimeoutError on the signal.
@@ -37,7 +42,12 @@ def raise_timeout(signum, frame):
 
 
 def send_message(message, alert=True):
+    # print to stdout
     print(message)
+    # skip slack messaging if not configured
+    if len(SLACK_PULSE_WEBHOOK) == 0 or len(SLACK_ALERT_WEBHOOK) == 0:
+        return
+
     global last_pulse
 
     if alert:
