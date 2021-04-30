@@ -30,7 +30,7 @@ To release me from constantly pressing F5 in these stores' GPU sections, I made 
 
 ## How it works
 
-This bot uses [Selenium](https://www.selenium.dev/) to lanch a Chrome instance. access the pages I configured and look for a "buy" button.
+This bot uses [Selenium](https://www.selenium.dev/) to launch a Chrome instance, access the pages I configured and look for a "buy" button.
 If the button is found, it plays a sound (in case I'm not using the computer; e.g. Kabum updates it's stock at 3 a.m. every day) and sends a message to my Slack
 notifications channel, which then vibrates my smartwatch.
 
