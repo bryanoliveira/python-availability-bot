@@ -30,7 +30,7 @@ To release me from constantly pressing F5 in these stores' GPU sections, I made 
 
 ## How it works
 
-This bot uses [Selenium](https://www.selenium.dev/) to open up a Chrome window, access the pages I configured and look for a "buy" button.
+This bot uses [Selenium](https://www.selenium.dev/) to lanch a Chrome instance. access the pages I configured and look for a "buy" button.
 If the button is found, it plays a sound (in case I'm not using the computer; e.g. Kabum updates it's stock at 3 a.m. every day) and sends a message to my Slack
 notifications channel, which then vibrates my smartwatch.
 
@@ -43,11 +43,11 @@ I opted to use the actual browser instance in case a Captcha was required, so I 
 
 Even with all the workarounds, the loop may still fail for some unknown (to me) reason.
 When this happens, a browser instance may be left open and blow up the memory if it repeats this behavior too much.
-To address this I added a graceful exit part that, combined with a timeout method, allowed the script to cleanly exit.
-I also wrapped the python file with a .sh that loops restarting the script if it exits.
+To address this I added a graceful exit procedure that, combined with a timeout method, allows the script to cleanly exit.
+I also wrapped the python script execution with a shell script that loops restarting the process if it exits unexpectedly.
 
 Finally, the bot also sends a "pulse" to slack (in a silenced channel) to indicate that it is still running.
-I added this after I lost a chance to buy a card due to an uncaptured timeout crash in the first day.
+I added this after I lost a chance to buy a card due to an uncaught timeout crash in the first day.
 
 ## Conclusion
 
