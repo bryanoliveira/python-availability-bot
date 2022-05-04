@@ -116,9 +116,16 @@ while True:
                     keys[page].capitalize(), pages[keys[page]]["url"]
                 )
             )
-            print("Sleeping {} seconds...".format(time_wait))
     except NoSuchElementException:
-        print("Dit not found! Sleeping {} seconds...".format(time_wait))
+        print("Element not found!")
+        try:
+            if driver.find_element_by_xpath(
+                "//h1 [contains( text(), 'Access Denied')]"
+            ):
+                print("Resetting the browser after access denied.")
+                exit(1)
+        except NoSuchElementException:
+            pass
     except Exception as e:
         print("Unknown exception:", e)
         try:
@@ -131,5 +138,6 @@ while True:
             pass
         exit()
 
+    print("Sleeping {} seconds...".format(time_wait))
     time.sleep(time_wait)
     page = (page + 1) % len(pages)
