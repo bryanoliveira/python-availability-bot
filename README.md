@@ -4,22 +4,13 @@ A Python bot that checks Kabum, Pichau and Terabyteshop (brazilian tech stores) 
 
 ## Usage
 
-Linux:
-
--   Clone this repository
--   Set the SLACK_ALERT_WEBHOOK and SLACK_PULSE_WEBHOOK environment variables ([Slack webhooks tutorial](https://api.slack.com/messaging/webhooks))
--   Install [Python 3](https://www.python.org/downloads/)
--   Install the requirements: `pip install -r requirements.txt`
--   Run the script: `./bot.sh`
-
-Windows:
-
--   Clone this repository
--   Set the SLACK_ALERT_WEBHOOK and SLACK_PULSE_WEBHOOK environment variables ([Slack webhooks tutorial](https://api.slack.com/messaging/webhooks))
--   Edit the bot.py script changing the web driver's path to `./chromedriver-86-windows.exe` (line 61)
--   Install [Python 3](https://www.python.org/downloads/)
--   Install the requirements: `pip install -r requirements.txt`
--   Run the script: `./bot.sh`
+- Clone this repository
+- Set the WEBHOOK_ALERT and WEBHOOK_PULSE environment variables ([Slack webhooks tutorial](https://api.slack.com/messaging/webhooks), or use Discord)
+- Download a browser driver compatible with the one you have installed [here](https://www.selenium.dev/downloads/)
+- Edit the bot.py script changing the web driver's path to the one you downloaded
+- Install [Python 3](https://www.python.org/downloads/)
+- Install the requirements: `pip install -r requirements.txt`
+- Run the script: `./bot.sh`
 
 ## Context
 

@@ -17,6 +17,7 @@ if not WEBHOOK_ALERT or len(WEBHOOK_ALERT) == 0:
 if not WEBHOOK_PULSE or len(WEBHOOK_PULSE) == 0:
     print("PULSE WEBHOOK NOT CONFIGURED!")
 
+
 @contextmanager
 def timeout(time):
     # Register a function to raise a TimeoutError on the signal.
@@ -42,7 +43,12 @@ def send_message(message, alert=True):
     # print to stdout
     print(message)
     # skip messaging if not configured
-    if not WEBHOOK_PULSE or not WEBHOOK_ALERT or len(WEBHOOK_PULSE) == 0 or len(WEBHOOK_ALERT) == 0:
+    if (
+        not WEBHOOK_PULSE
+        or not WEBHOOK_ALERT
+        or len(WEBHOOK_PULSE) == 0
+        or len(WEBHOOK_ALERT) == 0
+    ):
         return
 
     global last_pulse
@@ -61,20 +67,23 @@ def send_message(message, alert=True):
     encoded_body = json.dumps({"content": message}).encode("utf-8")
     http = urllib3.PoolManager()
     http.request(
-        "POST", url, body=encoded_body, headers={"Content-Type": "application/json"},
+        "POST",
+        url,
+        body=encoded_body,
+        headers={"Content-Type": "application/json"},
     )
 
 
 options = webdriver.ChromeOptions()
 options.add_argument("--disable-blink-features=AutomationControlled")
 # NOTE: update the driver to match the browser you have installed
-driver = webdriver.Chrome("./chromedriver-100-linux", options=options)
+driver = webdriver.Chrome("./chromedriver", options=options)
 pages = {
     "tickets": {
         "url": "https://www.eventim.com.br/event/arctic-monkeys-jeunesse-arena-15252258/",
         "method": driver.find_element_by_css_selector,
-        # "arg": 'div[data-cc-formcount="1_2_tickets"] div[data-tt-name="MEIA ENTRADA"] .ticket-type-stepper',
-        "arg": 'div[data-cc-formcount="0_1_tickets"] div[data-tt-name="INTEIRA"] .ticket-type-stepper',
+        "arg": 'div[data-cc-formcount="1_2_tickets"] div[data-tt-name="MEIA ENTRADA"] .ticket-type-stepper',  # CORRECT URL
+        # "arg": 'div[data-cc-formcount="0_1_tickets"] div[data-tt-name="INTEIRA"] .ticket-type-stepper',  # TEST URL
     },
 }
 keys = list(pages.keys())
@@ -89,7 +98,8 @@ while True:
 
     # change userAgent every request
     driver.execute_cdp_cmd(
-        "Network.setUserAgentOverride", {"userAgent": userAgent.random},
+        "Network.setUserAgentOverride",
+        {"userAgent": userAgent.random},
     )
     # driver.get("https://www.httpbin.org/headers")  # test header update
     try:
@@ -100,7 +110,11 @@ while True:
             # test
             pages[keys[page]]["method"](pages[keys[page]]["arg"])
             # if there was no exception, the element was found!
-            send_message("{} found!!! {}".format(keys[page].capitalize(), pages[keys[page]]["url"]))
+            send_message(
+                "{} found!!! {}".format(
+                    keys[page].capitalize(), pages[keys[page]]["url"]
+                )
+            )
 
             s = randfloat(10, 20)
             print("Sleeping {} seconds...".format(s))
@@ -122,4 +136,3 @@ while True:
         exit()
 
     page = (page + 1) % len(pages)
-
