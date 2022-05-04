@@ -95,6 +95,7 @@ send_message("Starting...", alert=False)
 while True:
     print()
     print(time.ctime())
+    time_wait = randfloat(10, 20)
 
     # change userAgent every request
     driver.execute_cdp_cmd(
@@ -115,14 +116,9 @@ while True:
                     keys[page].capitalize(), pages[keys[page]]["url"]
                 )
             )
-
-            s = randfloat(10, 20)
-            print("Sleeping {} seconds...".format(s))
-            time.sleep(s)
+            print("Sleeping {} seconds...".format(time_wait))
     except NoSuchElementException:
-        s = randfloat(15, 20)
-        print("Dit not found! Sleeping {} seconds...".format(s))
-        time.sleep(s)
+        print("Dit not found! Sleeping {} seconds...".format(time_wait))
     except Exception as e:
         print("Unknown exception:", e)
         try:
@@ -135,4 +131,5 @@ while True:
             pass
         exit()
 
+    time.sleep(time_wait)
     page = (page + 1) % len(pages)
