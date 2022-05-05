@@ -3,4 +3,5 @@ while true
 do
     python bot.py
     sleep 1
+    killall chrome
 done

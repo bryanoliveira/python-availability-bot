@@ -136,7 +136,7 @@ while True:
             driver.quit()
         except:
             pass
-        exit()
+        exit(1)
 
     print("Sleeping {} seconds...".format(time_wait))
     time.sleep(time_wait)
