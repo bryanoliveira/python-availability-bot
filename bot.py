@@ -78,12 +78,12 @@ options = webdriver.ChromeOptions()
 options.add_argument("--disable-blink-features=AutomationControlled")
 # NOTE: update the driver to match the browser you have installed
 driver = webdriver.Chrome("./chromedriver", options=options)
+# NOTE: update what you are looking for
 pages = {
     "tickets": {
         "url": "https://www.eventim.com.br/event/arctic-monkeys-jeunesse-arena-15252258/",
         "method": driver.find_element_by_css_selector,
-        "arg": 'div[data-cc-formcount="1_2_tickets"] div[data-tt-name="MEIA ENTRADA"] .ticket-type-stepper',  # CORRECT URL
-        # "arg": 'div[data-cc-formcount="0_1_tickets"] div[data-tt-name="INTEIRA"] .ticket-type-stepper',  # TEST URL
+        "arg": 'div[data-cc-formcount="1_2_tickets"] div[data-tt-name="MEIA ENTRADA"] .ticket-type-stepper',
     },
 }
 keys = list(pages.keys())
