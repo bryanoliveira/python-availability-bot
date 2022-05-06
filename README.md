@@ -1,25 +1,16 @@
-# VGA Availability Bot
+# Availability Bot
 
-A Python bot that checks Kabum, Pichau and Terabyteshop (brazilian tech stores) for RTX 3070 &amp; 3080 stock and sends alerts via Slack.
+A Python bot that checks a list of sites for product availability and sends alerts via webhooks (e.g. Discord or Slack).
 
 ## Usage
 
-Linux:
-
--   Clone this repository
--   Set the SLACK_ALERT_WEBHOOK and SLACK_PULSE_WEBHOOK environment variables ([Slack webhooks tutorial](https://api.slack.com/messaging/webhooks))
--   Install [Python 3](https://www.python.org/downloads/)
--   Install the requirements: `pip install -r requirements.txt`
--   Run the script: `./bot.sh`
-
-Windows:
-
--   Clone this repository
--   Set the SLACK_ALERT_WEBHOOK and SLACK_PULSE_WEBHOOK environment variables ([Slack webhooks tutorial](https://api.slack.com/messaging/webhooks))
--   Edit the bot.py script changing the web driver's path to `./chromedriver-86-windows.exe` (line 61)
--   Install [Python 3](https://www.python.org/downloads/)
--   Install the requirements: `pip install -r requirements.txt`
--   Run the script: `./bot.sh`
+- Clone this repository
+- Set the WEBHOOK_ALERT and WEBHOOK_PULSE environment variables (using [Slack](https://api.slack.com/messaging/webhooks), or [Discord](https://discord.com/developers/docs/resources/webhook#execute-webhook))
+- Download a browser driver compatible with the one you have installed [here](https://www.selenium.dev/downloads/#platforms-supported-by-selenium)
+- Edit the bot.py script changing the web driver's path to the one you downloaded
+- Install [Python 3](https://www.python.org/downloads/)
+- Install the requirements: `pip install -r requirements.txt`
+- Run the script: `./bot.sh`
 
 ## Context
 
